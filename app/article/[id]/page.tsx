@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import UserProfile from '../../components/UserProfile'
 import { Button } from "@/components/ui/button"
-
+// eslint-disable-file no-use-before-define 
 // Enhanced data for articles with better themes
 const articles = [
   { 

@@ -6,7 +6,7 @@ const recommendedArticles = [
   { id: 6, title: "Sustainable Living in 2023", author: "Diana Green" },
 ]
 
-export default function RecommendedArticles() {
+export default async function RecommendedArticles() {
   return (
     <div className="bg-white p-4 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4 text-secondary">Recommended Articles</h2>
@@ -23,4 +23,3 @@ export default function RecommendedArticles() {
     </div>
   )
 }
-
