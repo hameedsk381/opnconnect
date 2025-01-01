@@ -45,7 +45,7 @@ const articles = [
   },
 ]
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
+export default async function ArticlePage({ params }: { params: { id: string } }) {
   const article = articles.find(a => a.id === parseInt(params.id))
 
   if (!article) {
@@ -59,7 +59,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
         <span className="text-sm text-gray-200">
           {article.readingTime} min read · {article.category}
         </span>
-        <Button  className="flex items-center space-x-2 text-white bg-transparent border">
+        <Button className="flex items-center space-x-2 text-white bg-transparent border">
           <span>👏</span>
           <span>{article.claps}</span>
         </Button>
