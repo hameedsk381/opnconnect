@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import UserProfile from '../../components/UserProfile'
 import { Button } from "@/components/ui/button"
-// eslint-disable-file no-use-before-define 
+
 // Enhanced data for articles with better themes
 const articles = [
   { 
@@ -45,7 +45,7 @@ const articles = [
   },
 ]
 
-export default async function ArticlePage({ params }: { params: { id: string } }) {
+export default function ArticlePage({ params }: { params: { id: any } }) {
   const article = articles.find(a => a.id === parseInt(params.id))
 
   if (!article) {
