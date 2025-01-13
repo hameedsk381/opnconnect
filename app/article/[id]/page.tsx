@@ -1,73 +1,37 @@
-import { notFound } from 'next/navigation'
-import UserProfile from '../../components/UserProfile'
-import { Button } from "@/components/ui/button"
+"use client"
+import CommentSection from "@/app/components/CommentSection";
+import SuggestedTopics from "@/app/components/SuggestedTopics";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Article } from "@/app/types/article";
 
-// Enhanced data for articles with better themes
-const articles = [
-  { 
-    id: 1, 
-    title: "Getting Started with Next.js", 
-    content: "Next.js is a powerful React framework that simplifies building server-side rendered and statically generated web applications, enabling developers to create fast and scalable web experiences.", 
-    author: {
-      name: "John Doe",
-      bio: "Full-stack developer and tech enthusiast with a passion for modern web technologies.",
-      image: "/placeholder.svg?height=64&width=64"
-    },
-    category: "Web Development",
-    claps: 42,
-    readingTime: 5
-  },
-  { 
-    id: 2, 
-    title: "The Future of AI", 
-    content: "Artificial Intelligence is rapidly evolving, transforming industries and enhancing the way we interact with technology, paving the way for smarter solutions and innovations.", 
-    author: {
-      name: "Jane Smith",
-      bio: "AI researcher and writer dedicated to exploring the implications of AI in our daily lives.",
-      image: "/placeholder.svg?height=64&width=64"
-    },
-    category: "Technology",
-    claps: 15,
-    readingTime: 7
-  },
-  { 
-    id: 3, 
-    title: "Mastering TypeScript", 
-    content: "TypeScript introduces static typing to JavaScript, making it easier to write, maintain, and scale large applications while improving developer productivity and code quality.", 
-    author: {
-      name: "Bob Johnson",
-      bio: "Software engineer and TypeScript advocate, passionate about building robust applications.",
-      image: "/placeholder.svg?height=64&width=64"
-    },
-    category: "Programming",
-    claps: 30,
-    readingTime: 6
-  },
-]
+export default function ArticlePage({ params }: { params: Promise<{ id: string }> }) {
+  const [article, setArticle] = useState<Article | null>(null);
+  const [id, setId] = useState<string | null>(null);
 
-export default function ArticlePage({ params }: { params: { id: any } }) {
-  const article = articles.find(a => a.id === parseInt(params.id))
+  useEffect(() => {
+    params.then(unwrappedParams => {
+      setId(unwrappedParams.id);
+    });
+  }, [params]);
 
-  if (!article) {
-    notFound()
-  }
+  useEffect(() => {
+    if (id) {
+      fetch(`/api/articles?id=${id}`)
+        .then((res) => res.json())
+        .then((data) => setArticle(data))
+        .catch((err) => console.error("Error fetching article:", err));
+    }
+  }, [id]);
+
+  if (!article) return <p>Loading...</p>;
 
   return (
-    <article className="max-w-2xl mx-auto bg-gradient-to-r from-blue-500 to-green-500 shadow-lg rounded-lg p-6">
-      <h1 className="text-4xl font-bold mb-4 text-white">{article.title}</h1>
-      <div className="mb-4 flex items-center justify-between">
-        <span className="text-sm text-gray-200">
-          {article.readingTime} min read · {article.category}
-        </span>
-        <Button className="flex items-center space-x-2 text-white bg-transparent border">
-          <span>👏</span>
-          <span>{article.claps}</span>
-        </Button>
-      </div>
-      <div className="prose lg:prose-xl mb-8 text-gray-100">
-        {article.content}
-      </div>
-      <UserProfile {...article.author} />
-    </article>
-  )
+    <div className="p-6">
+      <h1 className="text-3xl font-bold">{article.title}</h1>
+      <p className="text-gray-700 mt-4">{article.content}</p>
+      <SuggestedTopics topics={article.suggestedTopics} />
+      <CommentSection articleId={id || ""} />
+    </div>
+  );
 }

@@ -7,7 +7,7 @@ const topics = [
 
 export default function RecommendedTopics() {
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="bg-white p-4 rounded-lg border">
       <h2 className="text-xl font-semibold mb-4 text-secondary">Recommended Topics</h2>
       <div className="flex flex-wrap gap-2">
         {topics.map((topic) => (

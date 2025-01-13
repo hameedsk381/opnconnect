@@ -9,7 +9,7 @@ const people = [
 
 export default function PeopleToFollow() {
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="bg-white p-4 rounded-lg border">
       <h2 className="text-xl font-semibold mb-4 text-secondary">People to Follow</h2>
       <ul className="space-y-4">
         {people.map((person) => (

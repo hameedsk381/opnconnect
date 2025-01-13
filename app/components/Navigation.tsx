@@ -17,7 +17,7 @@ export default function Navigation() {
     <nav className="bg-white  sticky top-0 z-10">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link href="/" className="text-2xl font-bold text-secondary">OpnConnect</Link>
+          <Link href="/" className="text-2xl font-bold text-secondary">OpnVaarta</Link>
           <div className="flex items-center space-x-4">
             <Link href="/editor" className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded hidden sm:inline-block">
               Write a story

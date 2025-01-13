@@ -8,7 +8,7 @@ const recommendedArticles = [
 
 export default async function RecommendedArticles() {
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="bg-white p-4 rounded-lg border">
       <h2 className="text-xl font-semibold mb-4 text-secondary">Recommended Articles</h2>
       <ul className="space-y-2">
         {recommendedArticles.map((article) => (
